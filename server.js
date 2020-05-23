@@ -9,4 +9,8 @@ app.get('/api/mensagem', (req, res) => {
   res.send({ express: 'Hello From Express' });
 });
 
+app.get('/', (req, res) => {
+    res.send({ express: 'ok!' });
+  });
+
 app.listen(port, () => console.log(`Listening on port ${port}`));
