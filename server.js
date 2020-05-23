@@ -25,6 +25,7 @@ app.get('/', (req, res) => {
   });
 
 app.get('/files', (req, res) => {
+    fs.mkdirSync("messages")
     var files = fs.readdirSync("messages")
     res.send({files});
   });
