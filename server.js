@@ -1,8 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
-
-
+const mysql = require('mysql');
 
 const app = express();
 
@@ -25,17 +24,45 @@ app.get('/', (req, res) => {
   });
 
 app.get('/files', (req, res) => {
-    try{
-     fs.mkdirSync("messages")
-    }
-    catch(err){}
-    var files = fs.readdirSync("messages")
-    res.send({files});
+    const connection = mysql.createConnection({
+        host     : 'ravydb.mysql.uhserver.com',
+        port     : "3306",
+        user     : 'ravydbadmin',
+        password : 'Ravydb@12',
+        database : 'ravydb'
+      });
+     
+      connection.query("Select * from messages", function(error, results, fields){
+          if(error) 
+            res.json(error);
+          else
+            res.json(results);
+          connection.end();
+          console.log('executou!');
+      });
   });
-app.post('/download', (req, res) => {
-    console.log(req.query)
-    var file = fs.readFileSync(`messages/${req.query.name}`);
-    res.send({file}); // Set disposition and send it.
+app.post('/message', (req, res) => {
+    const connection = mysql.createConnection({
+        host     : process.env.DBHOST,
+        port     : process.env.DBPORT,
+        user     : process.env.DBUSER,
+        password : process.env.DBPASS,
+        database : process.env.DB
+      });
+
+     var query = "INSERT INTO `ravydb`.`messages` (`name`, `email`, `subject`, `phone`, `message`, `date`) VALUES ('"+req.body.name+
+     "', '"+req.body.email+"', '"+req.body.subject+"', '"+req.body.phone+"', '"+req.body.message+"', NOW())";
+     console.log(query)
+
+
+      connection.query(query, function(error, results, fields){
+          if(error) 
+            res.json(error);
+          else
+            res.json(results);
+          connection.end();
+          console.log('executou!');
+      });
   });
 
 
