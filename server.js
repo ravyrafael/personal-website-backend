@@ -11,7 +11,7 @@ app.use(cors());
 
 app.post('/api/mensagem', (req, res) => {
     var date = new Date().toLocaleDateString()
-    const logger = fs.createWriteStream("messages/"+req.body.name+ ".json", {
+    const logger = fs.createWriteStream("messages/"+req.body.name.split(" ").join("")+ ".json", {
         flags: 'a' // 'a' means appending (old data will be preserved)
       })
       var values = req.body;
@@ -31,7 +31,7 @@ app.get('/files', (req, res) => {
   });
 app.post('/download', (req, res) => {
     console.log(req.query)
-    var file = fs.readFileSync(`messages/${req.query.name.split(" ").join("")}`);
+    var file = fs.readFileSync(`messages/${req.query.name}`);
     res.send({file}); // Set disposition and send it.
   });
 
