@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
     res.send({ express: 'ok!' });
   });
 
-app.get('/files', (req, res) => {
+app.get('/messages', (req, res) => {
     const connection = mysql.createConnection({
         host     : 'ravydb.mysql.uhserver.com',
         port     : "3306",
