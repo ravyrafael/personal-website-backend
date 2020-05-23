@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 
 const app = express();
 
@@ -13,4 +14,4 @@ app.get('/', (req, res) => {
     res.send({ express: 'ok!' });
   });
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+  app.listen(process.env.PORT || 8000); 
