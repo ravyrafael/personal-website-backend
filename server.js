@@ -31,7 +31,7 @@ app.get('/files', (req, res) => {
   });
 app.post('/download', (req, res) => {
     console.log(req.query)
-    var file = fs.readFileSync(`messages/${req.query.name}`);
+    var file = fs.readFileSync(`messages/${req.query.name.split(" ").join("")}`);
     res.send({file}); // Set disposition and send it.
   });
 
