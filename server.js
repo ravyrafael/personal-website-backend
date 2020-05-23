@@ -11,7 +11,7 @@ app.use(cors());
 
 app.post('/api/mensagem', (req, res) => {
     var date = new Date().toLocaleDateString()
-    const logger = fs.createWriteStream("messages/"+req.body.name+date+ ".json", {
+    const logger = fs.createWriteStream("messages/"+req.body.name+ ".json", {
         flags: 'a' // 'a' means appending (old data will be preserved)
       })
       var values = req.body;
