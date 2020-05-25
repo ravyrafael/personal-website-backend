@@ -25,11 +25,11 @@ app.get('/', (req, res) => {
 
 app.get('/messages', (req, res) => {
     const connection = mysql.createConnection({
-        host     : 'ravydb.mysql.uhserver.com',
-        port     : "3306",
-        user     : 'ravydbadmin',
-        password : 'Ravydb@12',
-        database : 'ravydb'
+        host     : process.env.DBHOST,
+        port     : process.env.DBPORT,
+        user     : process.env.DBUSER,
+        password : process.env.DBPASS,
+        database : process.env.DB
       });
      
       connection.query("Select * from messages", function(error, results, fields){
