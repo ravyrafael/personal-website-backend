@@ -65,5 +65,29 @@ app.post('/message', (req, res) => {
       });
   });
 
+  app.post('/notification', (req, res) => {
+    const connection = mysql.createConnection({
+        host     : process.env.DBHOST,
+        port     : process.env.DBPORT,
+        user     : process.env.DBUSER,
+        password : process.env.DBPASS,
+        database : process.env.DB
+      });
+
+     var query = "INSERT INTO `ravydb`.`notification` (`DateNotification`) VALUES ('NOW())";
+     console.log(query)
+
+
+      connection.query(query, function(error, results, fields){
+          if(error) 
+            res.json(error);
+          else
+            res.json(results);
+          connection.end();
+          console.log('executou!');
+      });
+  });
+
+
 
   app.listen(process.env.PORT || 8000); 
