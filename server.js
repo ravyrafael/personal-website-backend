@@ -74,7 +74,7 @@ app.post('/message', (req, res) => {
         database : process.env.DB
       });
 
-     var query = "INSERT INTO `ravydb`.`notification` (`DateNotification`) VALUES (NOW())";
+     var query = "INSERT INTO `ravydb`.`Notification` (`DateNotification`) VALUES (NOW())";
      console.log(query)
 
 
